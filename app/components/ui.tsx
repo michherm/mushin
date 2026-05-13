@@ -46,7 +46,7 @@ export function Display({
   return (
     <h1
       className={`font-serif font-light leading-[1.06] tracking-[-0.012em] text-ink animate-rise ${className}`}
-      style={{ fontSize: 'clamp(36px, 7vw, 64px)' }}
+      style={{ fontSize: 'clamp(32px, 6vw, 56px)' }}
     >
       {children}
     </h1>
@@ -145,29 +145,29 @@ export function Stage({
     ember:  'rgba(196, 74, 46, 0.10)',
   };
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center text-center px-6 py-20 relative overflow-hidden">
+    <div className="min-h-screen w-full flex flex-col items-center text-center px-5 pt-20 pb-16 relative">
       {glow && (
         <>
           <div
-            className="warm-glow"
+            className="warm-glow pointer-events-none"
             style={{
               top: '15%', left: '50%', transform: 'translateX(-50%)',
-              width: '60vw', height: '60vw',
+              width: '60vw', height: '60vw', maxWidth: '600px', maxHeight: '600px',
               background: `radial-gradient(circle, ${glowColors[glowColor]} 0%, transparent 70%)`,
             }}
           />
           <div
-            className="warm-glow"
+            className="warm-glow pointer-events-none"
             style={{
               bottom: '5%', right: '5%',
-              width: '40vw', height: '40vw',
+              width: '40vw', height: '40vw', maxWidth: '400px', maxHeight: '400px',
               background: `radial-gradient(circle, ${glowColors[glowColor]} 0%, transparent 70%)`,
               animationDelay: '4s',
             }}
           />
         </>
       )}
-      <div className="w-full max-w-[640px] relative z-10">{children}</div>
+      <div className="w-full max-w-[640px] relative z-10 my-auto">{children}</div>
     </div>
   );
 }
@@ -181,7 +181,11 @@ export function SoundToggle() {
     <button
       onClick={toggle}
       aria-label={enabled ? 'Klang aus' : 'Klang an'}
-      className="fixed top-5 right-5 z-50 w-10 h-10 flex items-center justify-center rounded-full bg-bg-warm/60 backdrop-blur-sm border border-line text-ink-dim hover:text-accent hover:border-accent transition-all duration-300"
+      className="fixed z-50 w-10 h-10 flex items-center justify-center rounded-full bg-bg-warm/60 backdrop-blur-sm border border-line text-ink-dim hover:text-accent hover:border-accent transition-all duration-300"
+      style={{
+        top: 'calc(env(safe-area-inset-top, 0px) + 16px)',
+        right: 'calc(env(safe-area-inset-right, 0px) + 16px)',
+      }}
     >
       {enabled ? (
         /* Klang an: drei kleine geschwungene Wellen */

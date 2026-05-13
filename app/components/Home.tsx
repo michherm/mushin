@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { Tag, Display, Rule } from '@/components/ui';
 import type { Level } from '@/lib/library';
 
@@ -98,28 +98,22 @@ export function Home({
   const [hour] = useState(greeting());
 
   return (
-    <div className="min-h-screen px-6 pt-14 pb-24 max-w-[980px] mx-auto relative">
+    <div className="min-h-screen px-4 sm:px-6 pt-16 pb-24 max-w-[980px] mx-auto relative">
       {/* Warmer Glow im Hintergrund */}
       <div
         aria-hidden
-        className="warm-glow"
+        className="warm-glow pointer-events-none"
         style={{
           top: '5%', left: '10%',
-          width: '40vw', height: '40vw',
+          width: '40vw', height: '40vw', maxWidth: '400px', maxHeight: '400px',
           background: 'radial-gradient(circle, rgba(217, 190, 133, 0.15) 0%, transparent 70%)',
         }}
       />
 
       <div className="animate-rise relative z-10">
-        {/* Kopfzeile */}
-        <div className="flex justify-between items-center mb-8">
+        {/* Kopfzeile — Mushin-Tag, Level-Knopf wird wegen Sound-Toggle nach unten verschoben */}
+        <div className="flex items-center mb-8">
           <Tag color="accent">無心 · Mushin</Tag>
-          <button
-            onClick={() => setLevel(level === 'beginner' ? 'cantienica' : 'beginner')}
-            className="bg-transparent border border-line text-ink-dim font-mono text-[9px] tracking-[0.24em] uppercase px-3 py-2 min-h-[36px] hover:border-accent hover:text-accent transition-colors"
-          >
-            {level === 'cantienica' ? 'Cantienica' : 'Basis'}
-          </button>
         </div>
 
         {/* Tageszeit-Gruß */}
@@ -168,26 +162,25 @@ export function Home({
         </p>
       </div>
 
-      {/* Module — jetzt mit Dauer und Beschreibung */}
+      {/* Module — Mobile 2 Spalten, ab ~700px drei Spalten */}
       <div
-        className="grid gap-px bg-line border border-line rounded-sm overflow-hidden relative z-10"
-        style={{ gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))' }}
+        className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-line border border-line rounded-sm overflow-hidden relative z-10"
       >
         {MODULES.map((m, idx) => (
           <button
             key={m.id}
             onClick={() => go(m.id)}
-            className="bg-bg text-ink text-left p-6 min-h-[210px] flex flex-col justify-between transition-all duration-500 hover:bg-bg-warm cursor-pointer border-0 group"
+            className="bg-bg text-ink text-left p-4 sm:p-6 min-h-[170px] sm:min-h-[210px] flex flex-col justify-between transition-all duration-500 hover:bg-bg-warm active:bg-bg-warm cursor-pointer border-0 group"
           >
-            <div className="flex justify-between items-start">
+            <div className="flex justify-between items-start gap-2">
               <div
-                className={`font-serif font-light text-[44px] leading-none transition-all duration-500 ${
+                className={`font-serif font-light text-[36px] sm:text-[44px] leading-none transition-all duration-500 ${
                   m.accent ? 'text-accent group-hover:text-glow' : 'text-accent opacity-65 group-hover:opacity-100'
                 }`}
               >
                 {m.glyph}
               </div>
-              <span className="font-mono text-[9px] tracking-[0.2em] text-ink-mute uppercase">
+              <span className="font-mono text-[9px] tracking-[0.2em] text-ink-mute uppercase shrink-0">
                 {m.duration}
               </span>
             </div>
@@ -197,9 +190,9 @@ export function Home({
                 0{idx + 1}
               </span>
               <div className="h-1.5" />
-              <div className="text-[22px] font-light text-ink">{m.name}</div>
-              <div className="text-ink-dim text-[13px] mt-0.5">{m.sub}</div>
-              <div className="text-ink-mute text-[12px] mt-2 italic font-serif leading-[1.4]">
+              <div className="text-[18px] sm:text-[22px] font-light text-ink">{m.name}</div>
+              <div className="text-ink-dim text-[12px] sm:text-[13px] mt-0.5">{m.sub}</div>
+              <div className="text-ink-mute text-[11px] sm:text-[12px] mt-2 italic font-serif leading-[1.4] hidden sm:block">
                 {m.what}
               </div>
             </div>
@@ -220,16 +213,19 @@ export function Home({
       <div className="h-12" />
 
       {/* Footer */}
-      <div className="flex justify-between items-center relative z-10">
+      <div className="flex justify-between items-center relative z-10 gap-3">
         <button
           onClick={() => go('patterns')}
           className="bg-transparent border-0 text-ink-mute font-mono text-[10px] tracking-[0.3em] uppercase cursor-pointer p-3 min-h-[40px] hover:text-accent transition-colors"
         >
-          Muster ansehen →
+          Muster →
         </button>
-        <span className="font-mono text-[9px] tracking-[0.3em] text-ink-mute uppercase">
-          Aufspannung trägt
-        </span>
+        <button
+          onClick={() => setLevel(level === 'beginner' ? 'cantienica' : 'beginner')}
+          className="bg-transparent border border-line text-ink-dim font-mono text-[10px] tracking-[0.24em] uppercase px-3 py-2 min-h-[40px] hover:border-accent hover:text-accent transition-colors rounded-sm"
+        >
+          {level === 'cantienica' ? 'Cantienica' : 'Basis'}
+        </button>
       </div>
     </div>
   );
