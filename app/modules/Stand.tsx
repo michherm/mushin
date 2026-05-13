@@ -11,19 +11,62 @@ interface StandStep {
   hint: string;
 }
 
+/**
+ * Cantienica-Aufrichtung: von Ferse bis Kronenpunkt.
+ * Folgt der Methoden-Logik: Knochen ausrichten, Aufspannung herstellen,
+ * Tiefenmuskulatur aktivieren — von unten nach oben.
+ */
 const SEQUENCES: Record<Level, StandStep[]> = {
   cantienica: [
-    { tag: '01', cue: 'Fußgewölbe aufrichten.',     hint: 'Vier Punkte. Großzeh, Kleinzeh, Ferse innen, Ferse außen.' },
-    { tag: '02', cue: 'Sitzbeinhöcker breit.',      hint: 'Beckenboden vernetzt. Levator ani sanft aktiv.' },
-    { tag: '03', cue: 'Becken in die Mittellage.',  hint: 'Weder nach vorn gekippt noch zurück. Im Lot.' },
-    { tag: '04', cue: 'Wirbelsäule aufspannen.',    hint: 'Kreuzbein nach unten, Hinterkopf nach oben.' },
-    { tag: '05', cue: 'Schultergürtel weit, tief.', hint: 'Schulterblätter sinken. Kehlkopf bleibt frei.' },
-    { tag: '06', cue: 'Zwerchfell senken.',         hint: 'Atem in die Flanken. Becken schwingt mit.' },
-    { tag: '07', cue: 'Blick weich.',               hint: 'Augen ruhig. Stirn glatt. Kiefer locker.' },
+    {
+      tag: '01',
+      cue: 'Fußgewölbe aufrichten.',
+      hint: 'Vier Punkte: Großzeh, Kleinzeh, Ferse innen, Ferse außen. Wolken unter den Fersen.',
+    },
+    {
+      tag: '02',
+      cue: 'Füße in V-Position.',
+      hint: 'Fersen näher zusammen als die Zehen. Kniescheiben nach vorn lang.',
+    },
+    {
+      tag: '03',
+      cue: 'Sitzbeinhöcker zueinander.',
+      hint: 'Sanft. Du aktivierst den Levator ani — die innerste Schicht des Beckenbodens.',
+    },
+    {
+      tag: '04',
+      cue: 'Becken in die Mittellage.',
+      hint: 'Schambein und Steißbein im Lot. Weder gekippt noch zurück.',
+    },
+    {
+      tag: '05',
+      cue: 'Wirbelsäule aufspannen.',
+      hint: 'Kreuzbein tiefer in den Körper. Hinterkopf zur Decke. Knochen langdenken.',
+    },
+    {
+      tag: '06',
+      cue: 'Schultergürtel tief, flach, weit.',
+      hint: 'Schulterblätter sinken zum Rücken. Kehlkopf frei. Schlüsselbeine langgedehnt.',
+    },
+    {
+      tag: '07',
+      cue: 'Zwerchfell senken.',
+      hint: 'Mit dem Bauch atmen, nicht in den Bauch. Atem in die Flanken, Rippen weiten.',
+    },
+    {
+      tag: '08',
+      cue: 'Zungenenden an den Gaumen.',
+      hint: 'Mund leicht geöffnet. Kiefer weich. Stirn entspannt.',
+    },
+    {
+      tag: '09',
+      cue: 'Kronenpunkt zur Decke.',
+      hint: 'Vier Fingerbreit hinter dem höchsten Punkt des Kopfes. Wachse in die volle Höhe.',
+    },
   ],
   beginner: [
     { tag: '01', cue: 'Spüre die Füße.',            hint: 'Vier Punkte: Großzeh, Kleinzeh, Ferse innen, Ferse außen.' },
-    { tag: '02', cue: 'Richte das Becken aus.',     hint: 'Weder nach vorn gekippt noch zurück.' },
+    { tag: '02', cue: 'Richte das Becken aus.',     hint: 'Weder nach vorn gekippt noch zurück. Mittig.' },
     { tag: '03', cue: 'Verlängere den Hinterkopf.', hint: 'Nach oben. Wie an einem feinen Faden.' },
     { tag: '04', cue: 'Löse die Schultern.',        hint: 'Weg von den Ohren. Schwer hängen lassen.' },
     { tag: '05', cue: 'Entspanne den Kiefer.',      hint: 'Zunge am Gaumen. Lippen leicht geschlossen.' },
@@ -51,7 +94,7 @@ export function Stand({
       <div className="h-8" />
       <Display>{step.cue}</Display>
       <div className="h-5" />
-      <p className="text-ink-dim text-[17px] leading-[1.5] max-w-[460px] mx-auto animate-fade">
+      <p className="text-ink-dim text-[17px] leading-[1.5] max-w-[480px] mx-auto animate-fade">
         {step.hint}
       </p>
       <div className="h-12" />
