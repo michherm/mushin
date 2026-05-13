@@ -21,11 +21,12 @@ import { Ground } from '@/modules/Ground';
 import { ActionStep } from '@/modules/ActionStep';
 import { Emergency } from '@/modules/Emergency';
 import { Patterns } from '@/modules/Patterns';
+import { Aufspannung } from '@/modules/Aufspannung';
 
 type Mode =
   | 'home'
   | 'stand' | 'breath' | 'sensei' | 'flow' | 'ground' | 'action'
-  | 'emergency' | 'patterns';
+  | 'emergency' | 'patterns' | 'aufspannung';
 
 export default function Page() {
   const [mode, setMode] = useState<Mode>('home');
@@ -105,6 +106,19 @@ export default function Page() {
           store.record({ type: 'emergency' });
           setMode('home');
         }}
+      />
+    );
+  }
+
+  if (mode === 'aufspannung') {
+    return (
+      <Aufspannung
+        level={level}
+        onComplete={() => {
+          store.record({ type: 'flow' }); // tracking als "flow" – ähnliche Kategorie
+          setMode('home');
+        }}
+        onExit={() => setMode('home')}
       />
     );
   }
