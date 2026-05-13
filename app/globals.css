@@ -1,0 +1,75 @@
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300&family=JetBrains+Mono:wght@300;400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ─── Font-Variablen ──────────────────────────────────────────────────── */
+:root {
+  --font-cormorant: 'Cormorant', Georgia, serif;
+  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+}
+
+/* ─── Basis-Reset ──────────────────────────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: #0B0B0C;
+  color: #E8E4DA;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: geometricPrecision;
+  overflow-x: hidden;
+  font-family: var(--font-cormorant);
+  font-weight: 300;
+}
+
+body {
+  /* iOS Safe Area */
+  padding-top: env(safe-area-inset-top);
+  padding-right: env(safe-area-inset-right);
+  padding-bottom: env(safe-area-inset-bottom);
+  padding-left: env(safe-area-inset-left);
+  min-height: 100vh;
+  /* iOS: vermeide Bouncing */
+  overscroll-behavior: none;
+}
+
+/* ─── Touch-Verhalten ─────────────────────────────────────────────────── */
+button, [role="button"] {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
+input, textarea {
+  -webkit-appearance: none;
+  appearance: none;
+  /* verhindert iOS Auto-Zoom bei <16px */
+  font-size: max(16px, 1em);
+}
+
+/* ─── Fokus ───────────────────────────────────────────────────────────── */
+button:focus-visible,
+[tabindex]:focus-visible,
+input:focus-visible,
+textarea:focus-visible {
+  outline: 1px solid #C9B98A;
+  outline-offset: 4px;
+}
+
+/* ─── Scrollbars — leise ─────────────────────────────────────────────── */
+::-webkit-scrollbar { width: 4px; height: 4px; }
+::-webkit-scrollbar-thumb { background: #1F1F22; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* ─── Atmender Orb-Übergang (zu komplex für Tailwind-Klasse) ─────────── */
+.orb-inhale  { transform: scale(1.14); transition: transform 4000ms cubic-bezier(.4,.1,.4,1); }
+.orb-hold    { transform: scale(1.14); transition: transform 4000ms cubic-bezier(.4,.1,.4,1); }
+.orb-exhale  { transform: scale(0.88); transition: transform 6000ms cubic-bezier(.4,.1,.4,1); }
+.orb-idle    { transform: scale(1.00); transition: transform 1600ms ease; }
+
+/* ─── Print: aus (das hier ist kein Dokument) ─────────────────────────── */
+@media print {
+  body { display: none; }
+}
