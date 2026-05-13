@@ -3,6 +3,7 @@
 import { useEffect, useState } from 'react';
 import { Stage, Tag, Display, Btn, Ghost } from '@/components/ui';
 import { BreathOrb } from '@/components/BreathOrb';
+import { useSoundscape } from '@/lib/useSoundscape';
 
 const FLOW_SECONDS = 60;
 
@@ -13,6 +14,8 @@ export function Flow({
   onComplete: () => void;
   onExit: () => void;
 }) {
+  useSoundscape('flow');
+
   const [seconds, setSeconds] = useState(FLOW_SECONDS);
 
   useEffect(() => {
@@ -23,8 +26,8 @@ export function Flow({
 
   if (seconds <= 0) {
     return (
-      <Stage>
-        <Tag>Flow</Tag>
+      <Stage glowColor="breath">
+        <Tag color="breath">Flow</Tag>
         <div className="h-8" />
         <Display>Vorbei.</Display>
         <div className="h-12" />
@@ -38,19 +41,19 @@ export function Flow({
     seconds % 10 < 6 ? 'hold' : 'out';
 
   return (
-    <Stage>
-      <Tag>Beobachten · Wasser</Tag>
+    <Stage glowColor="breath">
+      <Tag color="breath">Beobachten · Wasser</Tag>
       <div className="h-8" />
       <Display className="!text-[clamp(32px,5vw,44px)]">
         Gedanken ziehen durch.
       </Display>
       <div className="h-5" />
-      <p className="text-ink-dim text-[17px] max-w-[460px] mx-auto">
+      <p className="text-ink-dim text-[17px] max-w-[460px] mx-auto leading-[1.6]">
         Nicht festhalten. Nicht wegdrücken. Wasser.
       </p>
       <div className="h-12" />
       <div className="flex justify-center">
-        <BreathOrb size={180} phase={orbPhase} />
+        <BreathOrb size={180} phase={orbPhase} color="breath" />
       </div>
       <div className="h-10" />
       <span className="font-mono text-ink-dim text-[11px] tracking-[0.32em]">

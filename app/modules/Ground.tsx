@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import { Stage, Tag, Display, Btn, Ghost } from '@/components/ui';
+import { useSoundscape } from '@/lib/useSoundscape';
 
 const STEPS = [
   { n: 5, sense: 'siehst',   detail: 'Form. Farbe. Textur.' },
@@ -18,12 +19,14 @@ export function Ground({
   onComplete: () => void;
   onExit: () => void;
 }) {
+  useSoundscape('ground');
+
   const [i, setI] = useState(0);
 
   if (i >= STEPS.length) {
     return (
-      <Stage>
-        <Tag>Erden</Tag>
+      <Stage glowColor="accent">
+        <Tag color="accent">Erden</Tag>
         <div className="h-8" />
         <Display>Du bist hier.</Display>
         <div className="h-12" />
@@ -35,15 +38,30 @@ export function Ground({
   const s = STEPS[i];
 
   return (
-    <Stage>
-      <Tag>Erden · {s.n} · 5</Tag>
+    <Stage glowColor="accent">
+      <Tag color="accent">Erden · {s.n} · 5</Tag>
       <div className="h-8" />
       <Display>
-        <span className="text-accent">{s.n}</span> Dinge, die du {s.sense}.
+        <span className="text-glow">{s.n}</span> Dinge, die du {s.sense}.
       </Display>
       <div className="h-5" />
       <p className="text-ink-dim text-[17px]">{s.detail}</p>
       <div className="h-12" />
+
+      <div className="flex justify-center gap-1.5 mb-6">
+        {STEPS.map((_, idx) => (
+          <div
+            key={idx}
+            className="h-px rounded-full transition-all duration-500"
+            style={{
+              width: idx === i ? 24 : 12,
+              background: idx < i ? '#D9BE85' : idx === i ? '#E8C470' : '#3A2F22',
+              opacity: idx <= i ? 1 : 0.4,
+            }}
+          />
+        ))}
+      </div>
+
       <Btn onClick={() => setI(i + 1)}>Habe.</Btn>
       <div className="h-2" />
       <Ghost onClick={onExit}>Abbrechen</Ghost>

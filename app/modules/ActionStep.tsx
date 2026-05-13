@@ -16,8 +16,8 @@ export function ActionStep({
 
   if (done) {
     return (
-      <Stage>
-        <Tag>Handlung</Tag>
+      <Stage glowColor="accent">
+        <Tag color="accent">Handlung</Tag>
         <div className="h-8" />
         <Display className="!text-[clamp(28px,4vw,40px)] !text-ink-dim">Jetzt:</Display>
         <div className="h-4" />
@@ -31,14 +31,14 @@ export function ActionStep({
   }
 
   return (
-    <Stage>
-      <Tag>Handlung · Ein Schritt</Tag>
-      <div className="h-8" />
+    <Stage glowColor="accent">
+      <Tag color="accent">Handlung · Ein direkter Schritt</Tag>
+      <div className="h-7" />
       <Display className="!text-[clamp(28px,4vw,40px)]">
-        Welche eine Bewegung ist jetzt real?
+        Welche eine Bewegung<br />ist jetzt real?
       </Display>
       <div className="h-4" />
-      <p className="text-ink-dim text-[16px]">
+      <p className="text-ink-dim text-[16px] max-w-[420px] mx-auto leading-[1.6]">
         Klein. Konkret. In zwei Minuten machbar.
       </p>
       <div className="h-7" />
@@ -50,8 +50,11 @@ export function ActionStep({
           if (e.key === 'Enter' && step.trim()) setDone(true);
         }}
         placeholder="Aufstehen. Wasser holen. Anrufen."
-        className="w-full max-w-[520px] bg-transparent text-ink border-none border-b border-line-hi outline-none text-center font-serif font-light py-3 px-1"
-        style={{ fontSize: 'clamp(20px, 3vw, 26px)', borderBottomWidth: 1, borderBottomColor: '#2A2A2E', borderBottomStyle: 'solid' }}
+        className="w-full max-w-[520px] bg-transparent text-ink border-none outline-none text-center font-serif font-light py-3 px-1"
+        style={{
+          fontSize: 'clamp(20px, 3vw, 26px)',
+          borderBottom: '1px solid #3A2F22',
+        }}
       />
       <div className="h-10" />
       <Btn onClick={() => setDone(true)} disabled={!step.trim()}>
