@@ -12,12 +12,13 @@ interface Module {
 }
 
 const MODULES: Module[] = [
-  { id: 'stand',  glyph: '一', name: 'Stand',    sub: 'Aufrichtung zuerst.' },
-  { id: 'breath', glyph: '二', name: 'Atem',     sub: 'Vier · Vier · Sechs.' },
-  { id: 'sensei', glyph: '三', name: 'Sensei',   sub: 'Adaptiver Coach.', accent: true },
-  { id: 'flow',   glyph: '四', name: 'Flow',     sub: 'Beobachten. Nicht festhalten.' },
-  { id: 'ground', glyph: '五', name: 'Erden',    sub: 'Fünf Sinne, zurück.' },
-  { id: 'action', glyph: '六', name: 'Handlung', sub: 'Ein Schritt. Jetzt.' },
+  { id: 'stand',       glyph: '一', name: 'Stand',       sub: 'Aufrichtung zuerst.' },
+  { id: 'aufspannung', glyph: '二', name: 'Aufspannung', sub: 'Im Sitzen. 90 Sekunden.' },
+  { id: 'breath',      glyph: '三', name: 'Atem',        sub: 'Vier · Vier · Sechs.' },
+  { id: 'sensei',      glyph: '四', name: 'Sensei',      sub: 'Adaptiver Coach.', accent: true },
+  { id: 'flow',        glyph: '五', name: 'Flow',        sub: 'Beobachten. Nicht festhalten.' },
+  { id: 'ground',      glyph: '六', name: 'Erden',       sub: 'Fünf Sinne, zurück.' },
+  { id: 'action',      glyph: '七', name: 'Handlung',    sub: 'Ein Schritt. Jetzt.' },
 ];
 
 export function Home({
