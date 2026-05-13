@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;1,300&family=JetBrains+Mono:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400&display=swap');
 
 @tailwind base;
 @tailwind components;
@@ -16,8 +16,7 @@
 html, body {
   margin: 0;
   padding: 0;
-  background: #0B0B0C;
-  color: #E8E4DA;
+  color: #F0E8D9;
   -webkit-font-smoothing: antialiased;
   text-rendering: geometricPrecision;
   overflow-x: hidden;
@@ -25,15 +24,28 @@ html, body {
   font-weight: 300;
 }
 
+/* ─── Wärmer, lebendiger Hintergrund ──────────────────────────────────── */
+/* Subtle radial gradient mit warmem Glow — wie Kerzenschein im Dojo */
 body {
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(217, 190, 133, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(125, 168, 156, 0.04) 0%, transparent 50%),
+    linear-gradient(180deg, #0F0D0B 0%, #110E0A 50%, #0F0D0B 100%);
+  background-attachment: fixed;
+  background-size: 200% 200%;
+  animation: warmDrift 30s ease-in-out infinite;
   /* iOS Safe Area */
   padding-top: env(safe-area-inset-top);
   padding-right: env(safe-area-inset-right);
   padding-bottom: env(safe-area-inset-bottom);
   padding-left: env(safe-area-inset-left);
   min-height: 100vh;
-  /* iOS: vermeide Bouncing */
   overscroll-behavior: none;
+}
+
+@keyframes warmDrift {
+  0%, 100% { background-position: 0% 0%, 100% 100%, 0% 50%; }
+  50%      { background-position: 5% 5%, 95% 95%, 100% 50%; }
 }
 
 /* ─── Touch-Verhalten ─────────────────────────────────────────────────── */
@@ -45,31 +57,60 @@ button, [role="button"] {
 input, textarea {
   -webkit-appearance: none;
   appearance: none;
-  /* verhindert iOS Auto-Zoom bei <16px */
   font-size: max(16px, 1em);
 }
 
-/* ─── Fokus ───────────────────────────────────────────────────────────── */
 button:focus-visible,
 [tabindex]:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  outline: 1px solid #C9B98A;
+  outline: 1px solid #D9BE85;
   outline-offset: 4px;
 }
 
-/* ─── Scrollbars — leise ─────────────────────────────────────────────── */
 ::-webkit-scrollbar { width: 4px; height: 4px; }
-::-webkit-scrollbar-thumb { background: #1F1F22; }
+::-webkit-scrollbar-thumb { background: #2A2218; }
 ::-webkit-scrollbar-track { background: transparent; }
 
-/* ─── Atmender Orb-Übergang (zu komplex für Tailwind-Klasse) ─────────── */
+/* ─── Atmender Orb-Übergang ──────────────────────────────────────────── */
 .orb-inhale  { transform: scale(1.14); transition: transform 4000ms cubic-bezier(.4,.1,.4,1); }
 .orb-hold    { transform: scale(1.14); transition: transform 4000ms cubic-bezier(.4,.1,.4,1); }
 .orb-exhale  { transform: scale(0.88); transition: transform 6000ms cubic-bezier(.4,.1,.4,1); }
 .orb-idle    { transform: scale(1.00); transition: transform 1600ms ease; }
 
-/* ─── Print: aus (das hier ist kein Dokument) ─────────────────────────── */
+/* ─── Sanftes Hintergrund-Glühen (Komponente) ────────────────────────── */
+.warm-glow {
+  position: absolute;
+  pointer-events: none;
+  filter: blur(80px);
+  opacity: 0.3;
+  animation: glowPulse 8s ease-in-out infinite;
+}
+
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50%      { opacity: 0.4; transform: scale(1.1); }
+}
+
+/* ─── Knochen-Indikator (für "Knochen denken") ───────────────────────── */
+.bone-line {
+  position: relative;
+  display: inline-block;
+}
+.bone-line::after {
+  content: '';
+  position: absolute;
+  left: 0; right: 0; bottom: -3px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #D9BE85, transparent);
+  opacity: 0.6;
+  animation: boneShimmer 3s ease-in-out infinite;
+}
+@keyframes boneShimmer {
+  0%, 100% { opacity: 0.3; }
+  50%      { opacity: 0.8; }
+}
+
 @media print {
   body { display: none; }
 }
