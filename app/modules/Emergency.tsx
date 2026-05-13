@@ -43,19 +43,19 @@ export function Emergency({
   const [i, setI] = useState(0);
 
   return (
-    <div className="fixed inset-0 bg-bg-ink z-50 flex flex-col items-center justify-center px-6 text-center overflow-hidden">
+    <div className="fixed inset-0 bg-bg-ink z-50 flex flex-col items-center justify-center px-5 py-12 text-center overflow-y-auto">
       {/* Warmer Glow auch hier — nicht kalt */}
       <div
         aria-hidden
-        className="warm-glow"
+        className="warm-glow pointer-events-none"
         style={{
           top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
-          width: '80vw', height: '80vw',
+          width: '80vw', height: '80vw', maxWidth: '600px', maxHeight: '600px',
           background: 'radial-gradient(circle, rgba(196, 74, 46, 0.12) 0%, transparent 70%)',
         }}
       />
 
-      <div className="relative z-10">
+      <div className="relative z-10 my-auto">
         <Tag color="ember">Reduktion</Tag>
         <div className="h-8" />
         <h1
