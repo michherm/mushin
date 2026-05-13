@@ -19,13 +19,22 @@ html, body {
   color: #F0E8D9;
   -webkit-font-smoothing: antialiased;
   text-rendering: geometricPrecision;
-  overflow-x: hidden;
   font-family: var(--font-cormorant);
   font-weight: 300;
 }
 
+html {
+  /* Verhindert horizontales Scrollen, aber erlaubt vertikales */
+  overflow-x: hidden;
+}
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh; /* Dynamic viewport — funktioniert auf modernen Mobile-Browsern */
+  /* iOS Safe Area nur als Top/Bottom-Indikator, NICHT als Padding auf body */
+}
+
 /* ─── Wärmer, lebendiger Hintergrund ──────────────────────────────────── */
-/* Subtle radial gradient mit warmem Glow — wie Kerzenschein im Dojo */
 body {
   background:
     radial-gradient(ellipse at 20% 0%, rgba(217, 190, 133, 0.06) 0%, transparent 50%),
@@ -34,13 +43,7 @@ body {
   background-attachment: fixed;
   background-size: 200% 200%;
   animation: warmDrift 30s ease-in-out infinite;
-  /* iOS Safe Area */
-  padding-top: env(safe-area-inset-top);
-  padding-right: env(safe-area-inset-right);
-  padding-bottom: env(safe-area-inset-bottom);
-  padding-left: env(safe-area-inset-left);
-  min-height: 100vh;
-  overscroll-behavior: none;
+  overscroll-behavior-y: none;
 }
 
 @keyframes warmDrift {
