@@ -4,6 +4,7 @@ import { useState } from 'react';
 import { Tag, Btn } from '@/components/ui';
 import { BreathOrb } from '@/components/BreathOrb';
 import { useSoundscape } from '@/lib/useSoundscape';
+import { useAnnounceExercise } from '@/lib/SpeechOutputContext';
 import type { Level } from '@/lib/library';
 
 const FLOWS: Record<Level, string[]> = {
@@ -41,6 +42,8 @@ export function Emergency({
 
   const flow = FLOWS[level];
   const [i, setI] = useState(0);
+
+  useAnnounceExercise(flow[i] ?? '', `emergency-${i}`);
 
   return (
     <div className="fixed inset-0 bg-bg z-50 flex flex-col items-center justify-center px-5 py-12 text-center overflow-y-auto">

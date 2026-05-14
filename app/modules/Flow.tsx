@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { Stage, Tag, Display, Btn, Ghost } from '@/components/ui';
 import { BreathOrb } from '@/components/BreathOrb';
 import { useSoundscape } from '@/lib/useSoundscape';
+import { useAnnounceExercise } from '@/lib/SpeechOutputContext';
 
 const FLOW_SECONDS = 60;
 
@@ -15,6 +16,11 @@ export function Flow({
   onExit: () => void;
 }) {
   useSoundscape('flow');
+
+  useAnnounceExercise(
+    'Gedanken ziehen durch. Nicht festhalten. Lass sie wie Wasser ziehen.',
+    'flow-entry',
+  );
 
   const [seconds, setSeconds] = useState(FLOW_SECONDS);
 

@@ -4,11 +4,12 @@ import { useEffect, useState } from 'react';
 import { Stage, Tag, Display, Btn, Ghost } from '@/components/ui';
 import { BreathOrb, type BreathPhase } from '@/components/BreathOrb';
 import { useSoundscape } from '@/lib/useSoundscape';
+import { useAnnounceExercise } from '@/lib/SpeechOutputContext';
 
-const CYCLE: { name: string; ms: number; key: BreathPhase }[] = [
-  { name: 'Ein',  ms: 4000, key: 'in' },
-  { name: 'Halt', ms: 4000, key: 'hold' },
-  { name: 'Aus',  ms: 6000, key: 'out' },
+const CYCLE: { name: string; ms: number; key: BreathPhase; speak: string }[] = [
+  { name: 'Ein',  ms: 4000, key: 'in', speak: 'Einatmen' },
+  { name: 'Halt', ms: 4000, key: 'hold', speak: 'Halten' },
+  { name: 'Aus',  ms: 6000, key: 'out', speak: 'Ausatmen' },
 ];
 const ROUNDS = 4;
 
@@ -35,6 +36,14 @@ export function Breath({
     }, CYCLE[step].ms);
     return () => clearTimeout(t);
   }, [step, round, started]);
+
+  const breathAnnounce =
+    !started || round >= ROUNDS
+      ? ''
+      : round === 0 && step === 0
+        ? `Atemübung: vier ein, vier halten, sechs aus. ${CYCLE[step].speak}. Runde 1 von ${ROUNDS}.`
+        : `${CYCLE[step].speak}. Runde ${round + 1} von ${ROUNDS}.`;
+  useAnnounceExercise(breathAnnounce, `breath-${started}-${round}-${step}`);
 
   if (!started) {
     return (

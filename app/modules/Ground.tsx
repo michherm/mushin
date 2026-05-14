@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import { Stage, Tag, Display, Btn, Ghost } from '@/components/ui';
 import { useSoundscape } from '@/lib/useSoundscape';
+import { useAnnounceExercise } from '@/lib/SpeechOutputContext';
 
 const STEPS = [
   { n: 5, sense: 'siehst',    detail: 'Form. Farbe. Textur.' },
@@ -22,6 +23,11 @@ export function Ground({
   useSoundscape('ground');
 
   const [i, setI] = useState(0);
+  const active = i < STEPS.length ? STEPS[i] : null;
+  useAnnounceExercise(
+    active ? `${active.n} Dinge, die du ${active.sense}. ${active.detail}` : '',
+    active ? `ground-${i}` : 'ground-idle',
+  );
 
   if (i >= STEPS.length) {
     return (

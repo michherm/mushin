@@ -6,6 +6,7 @@ import { BreathOrb } from '@/components/BreathOrb';
 import { VoiceToggle } from '@/components/VoiceToggle';
 import { PelvisLevator, CrownPoint, SpineDeep } from '@/components/Anatomy';
 import { useSoundscape } from '@/lib/useSoundscape';
+import { useAnnounceExercise } from '@/lib/SpeechOutputContext';
 import { useVoiceCommands } from '@/lib/useVoiceCommands';
 import type { Level } from '@/lib/library';
 
@@ -77,6 +78,12 @@ export function Aufspannung({
     onBack: handleBack,
     onExit: onExit,
   });
+
+  const stationLive = started && i < stations.length ? stations[i] : null;
+  useAnnounceExercise(
+    stationLive ? `${stationLive.cue} ${stationLive.hint}` : '',
+    stationLive ? `aufspannung-${i}-${stationLive.tag}` : 'aufspannung-idle',
+  );
 
   if (!started) {
     return (

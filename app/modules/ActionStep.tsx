@@ -1,8 +1,9 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Stage, Tag, Display, Btn, Ghost } from '@/components/ui';
 import { store } from '@/lib/store';
+import { useSpeechOutput } from '@/lib/SpeechOutputContext';
 
 export function ActionStep({
   onComplete,
@@ -13,6 +14,13 @@ export function ActionStep({
 }) {
   const [step, setStep] = useState('');
   const [done, setDone] = useState(false);
+  const { enabled, supported, speak } = useSpeechOutput();
+
+  useEffect(() => {
+    if (!done || !enabled || !supported) return;
+    const line = (step.trim() || 'Stehe auf.').trim();
+    if (line) speak(line);
+  }, [done, step, enabled, supported, speak]);
 
   if (done) {
     return (

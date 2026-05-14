@@ -8,6 +8,7 @@ import {
   FootArch, PelvisLevator, SpineDeep, Diaphragm, Scapula, CrownPoint,
 } from '@/components/Anatomy';
 import { useSoundscape } from '@/lib/useSoundscape';
+import { useAnnounceExercise } from '@/lib/SpeechOutputContext';
 import { useVoiceCommands } from '@/lib/useVoiceCommands';
 import type { Level } from '@/lib/library';
 
@@ -57,6 +58,8 @@ export function Stand({
   const [i, setI] = useState(0);
   const step = points[i];
   const Anatomy = step.Anatomy;
+
+  useAnnounceExercise(`${step.cue} ${step.hint}`, `stand-${level}-${i}`);
 
   // Sprachsteuerung: weiter / zurück / stopp / ende
   const handleNext = useCallback(() => {

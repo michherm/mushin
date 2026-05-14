@@ -9,6 +9,8 @@ import { useState } from 'react';
 import { useLevel } from '@/lib/useLevel';
 import { store } from '@/lib/store';
 import { SoundToggle } from '@/components/ui';
+import { SpeechOutToggle } from '@/components/SpeechOutToggle';
+import { SpeechOutputProvider } from '@/lib/SpeechOutputContext';
 import { Home } from '@/components/Home';
 import { Stand } from '@/modules/Stand';
 import { Breath } from '@/modules/Breath';
@@ -49,9 +51,10 @@ export default function Page() {
   };
 
   return (
-    <>
+    <SpeechOutputProvider>
+      <SpeechOutToggle />
       <SoundToggle />
       {renderModule()}
-    </>
+    </SpeechOutputProvider>
   );
 }

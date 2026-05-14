@@ -3,6 +3,7 @@
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Stage, Tag, Display, Rule, Btn, Ghost, BoneCue } from '@/components/ui';
 import { useSensei, type SenseiResult } from '@/lib/useSensei';
+import { useSpeechOutput } from '@/lib/SpeechOutputContext';
 import { useSoundscape } from '@/lib/useSoundscape';
 import { store } from '@/lib/store';
 import type { Level, ZustandsKey } from '@/lib/library';
@@ -71,6 +72,15 @@ export function Sensei({
   const [response, setResponse] = useState<SenseiResult | null>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
   const { ask, loading } = useSensei();
+  const { enabled, supported, speak } = useSpeechOutput();
+
+  useEffect(() => {
+    if (!response || !enabled || !supported) return;
+    const inv = response.intervention;
+    const lines = [inv.line1, inv.line2, inv.line3].filter((x): x is string => Boolean(x?.trim()));
+    if (!lines.length) return;
+    speak(lines.join('. '));
+  }, [response, enabled, supported, speak]);
 
   useEffect(() => {
     if (spiralCount >= SPIRAL_FORCE_THRESHOLD) {
