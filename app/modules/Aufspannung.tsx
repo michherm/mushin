@@ -1,10 +1,12 @@
 'use client';
 
-import { useEffect, useState, type ComponentType } from 'react';
+import { useEffect, useState, useCallback, type ComponentType } from 'react';
 import { Stage, Tag, Display, Btn, Ghost, BoneCue } from '@/components/ui';
 import { BreathOrb } from '@/components/BreathOrb';
+import { VoiceToggle } from '@/components/VoiceToggle';
 import { PelvisLevator, CrownPoint, SpineDeep } from '@/components/Anatomy';
 import { useSoundscape } from '@/lib/useSoundscape';
+import { useVoiceCommands } from '@/lib/useVoiceCommands';
 import type { Level } from '@/lib/library';
 
 interface Station {
@@ -54,6 +56,27 @@ export function Aufspannung({
     const t = setTimeout(() => setI(prev => prev + 1), DURATION_MS);
     return () => clearTimeout(t);
   }, [i, started, stations.length]);
+
+  // Sprachsteuerung
+  const handleNext = useCallback(() => {
+    if (!started) {
+      setStarted(true);
+    } else if (i < stations.length - 1) {
+      setI(curr => curr + 1);
+    } else {
+      onComplete();
+    }
+  }, [started, i, stations.length, onComplete]);
+
+  const handleBack = useCallback(() => {
+    if (i > 0) setI(curr => curr - 1);
+  }, [i]);
+
+  const voice = useVoiceCommands({
+    onNext: handleNext,
+    onBack: handleBack,
+    onExit: onExit,
+  });
 
   if (!started) {
     return (
@@ -142,6 +165,18 @@ export function Aufspannung({
           ? <Btn onClick={() => setI(i + 1)}>Weiter</Btn>
           : <Btn onClick={onComplete}>Schließen</Btn>}
       </div>
+
+      {/* Sprachsteuerung */}
+      {voice.supported && (
+        <div className="mt-6 flex justify-center">
+          <VoiceToggle
+            active={voice.active}
+            onClick={voice.active ? voice.stop : voice.start}
+            lastHeard={voice.lastHeard}
+          />
+        </div>
+      )}
+
       <div className="h-2" />
       <Ghost onClick={onExit}>Abbrechen</Ghost>
     </Stage>

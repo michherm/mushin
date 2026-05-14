@@ -1,12 +1,14 @@
 'use client';
 
-import { useState, type ComponentType } from 'react';
+import { useState, useCallback, type ComponentType } from 'react';
 import { Stage, Tag, Display, Btn, Ghost, BoneCue } from '@/components/ui';
 import { BreathOrb } from '@/components/BreathOrb';
+import { VoiceToggle } from '@/components/VoiceToggle';
 import {
   FootArch, PelvisLevator, SpineDeep, Diaphragm, Scapula, CrownPoint,
 } from '@/components/Anatomy';
 import { useSoundscape } from '@/lib/useSoundscape';
+import { useVoiceCommands } from '@/lib/useVoiceCommands';
 import type { Level } from '@/lib/library';
 
 interface StandStep {
@@ -55,6 +57,25 @@ export function Stand({
   const [i, setI] = useState(0);
   const step = points[i];
   const Anatomy = step.Anatomy;
+
+  // Sprachsteuerung: weiter / zurück / stopp / ende
+  const handleNext = useCallback(() => {
+    if (i < points.length - 1) {
+      setI(curr => curr + 1);
+    } else {
+      onComplete();
+    }
+  }, [i, points.length, onComplete]);
+
+  const handleBack = useCallback(() => {
+    if (i > 0) setI(curr => curr - 1);
+  }, [i]);
+
+  const voice = useVoiceCommands({
+    onNext: handleNext,
+    onBack: handleBack,
+    onExit: onExit,
+  });
 
   return (
     <Stage glowColor="accent">
@@ -106,6 +127,18 @@ export function Stand({
           ? <Btn onClick={() => setI(i + 1)}>Weiter</Btn>
           : <Btn onClick={onComplete}>Aufgespannt.</Btn>}
       </div>
+
+      {/* Sprachsteuerung — nur anzeigen, wenn Browser unterstützt */}
+      {voice.supported && (
+        <div className="mt-6 flex justify-center">
+          <VoiceToggle
+            active={voice.active}
+            onClick={voice.active ? voice.stop : voice.start}
+            lastHeard={voice.lastHeard}
+          />
+        </div>
+      )}
+
       <div className="h-2" />
       <Ghost onClick={onExit}>Abbrechen</Ghost>
     </Stage>
