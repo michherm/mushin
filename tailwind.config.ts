@@ -1,70 +1,60 @@
 import type { Config } from 'tailwindcss';
 
 /**
- * Mushin Designtokens — Version 2 (wärmer, lebendiger)
+ * Mushin Designtokens — Version 3: Morgenwasser
  *
- * Vorher: kühles Anthrazit (#0B0B0C), kaltes Bone (#E8E4DA)
- * Jetzt:  warmes Anthrazit mit Braununterton, lebendigeres Bone,
- *         ein zusätzlicher Glut-Ton für Wärme, ein Atem-Ton für Bewegung.
+ * Skandinavisches Atelier, ruhiges Morgenlicht, Wasser, Schiefer.
+ * Warmes Off-White, tiefes Petrol, gedämpftes Morgenblau.
+ *
+ * Inter für UI-Text (klar lesbar).
+ * Cormorant für Display-Sätze (elegant).
  */
 const config: Config = {
   content: ['./app/**/*.{ts,tsx}'],
   theme: {
     extend: {
       colors: {
-        // Hintergründe — warmes Anthrazit, kein kaltes Grau
-        bg:       '#0F0D0B',  // Basis: Schwarz mit Braun-Unterton
-        'bg-raise': '#15110E', // angehoben (Karten)
-        'bg-warm': '#1A1612',  // warme Karten (Sensei, Aufspannung)
-        'bg-ink': '#0A0907',   // tiefer Fokus / Emergency
+        // Hintergründe — warmes Off-White
+        bg:         '#F7F5F2',  // Basis
+        'bg-raise': '#FDFBF8',  // Karten, gehobene Flächen
+        'bg-warm':  '#EDE8E0',  // sanfte Akzentfläche
+        'bg-ink':   '#1F2A30',  // dunkler Fokus (Emergency)
 
-        // Linien — wärmere Trennlinien
-        line:     '#2A2218',
-        'line-hi':'#3A2F22',
+        // Linien
+        line:       '#D8CFC0',  // standard
+        'line-hi':  '#B4A88E',  // bei Hover
 
-        // Text — wärmeres Bone-White
-        ink:      '#F0E8D9',   // hellerer, lebendigerer Bone-Ton
-        'ink-dim':'#9A8E78',
-        'ink-mute':'#5A4F3E',
+        // Text
+        ink:        '#1F2A30',  // Haupttext
+        'ink-dim':  '#485861',  // gedämpft, aber gut lesbar
+        'ink-mute': '#7C8A91',  // sehr leise
 
-        // Akzente — die Farben des Dojos
-        accent:   '#D9BE85',   // gebürstetes Messing, wärmer und tiefer
-        glow:     '#E8C470',   // Glut — bei Übergängen, Highlights
-        breath:   '#7DA89C',   // sanftes Salbei — Atem & Ruhe
-        ember:    '#C44A2E',   // Reduktion / Emergency
+        // Akzente
+        accent:     '#244D52',  // tiefes Petrol — Hauptakzent
+        glow:       '#2F5D62',  // helleres Petrol
+        breath:     '#5E8590',  // Morgenblau — Atem & Ruhe
+        ember:      '#A35446',  // gedämpftes Terrakotta für Notfall
       },
       fontFamily: {
-        serif: ['var(--font-cormorant)', 'Georgia', 'serif'],
-        mono:  ['var(--font-mono)', 'ui-monospace', 'monospace'],
+        display: ['var(--font-display)', 'Georgia', 'serif'],
+        ui:      ['var(--font-ui)', 'system-ui', 'sans-serif'],
+        // Behalte für Kompatibilität
+        serif: ['var(--font-display)', 'Georgia', 'serif'],
+        mono:  ['var(--font-ui)', 'system-ui', 'monospace'],
       },
       letterSpacing: {
-        'tag': '0.22em',
-        'micro': '0.32em',
+        'tag': '0.18em',
+        'micro': '0.22em',
       },
       animation: {
         'rise':    'rise 900ms cubic-bezier(.2,.7,.2,1) both',
         'fade':    'fade 1200ms ease both',
         'draw':    'drawLine 1200ms cubic-bezier(.2,.7,.2,1) both',
-        'breathe': 'bgBreathe 12s ease-in-out infinite',
-        'glow':    'glowPulse 4s ease-in-out infinite',
-        'warm':    'warmShift 20s ease-in-out infinite',
       },
       keyframes: {
-        rise:       { from: { opacity: '0', transform: 'translateY(8px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
-        fade:       { from: { opacity: '0' }, to: { opacity: '1' } },
-        drawLine:   { from: { transform: 'scaleX(0)' }, to: { transform: 'scaleX(1)' } },
-        bgBreathe:  {
-          '0%, 100%': { opacity: '0.4', transform: 'scale(1)' },
-          '50%':      { opacity: '0.7', transform: 'scale(1.05)' },
-        },
-        glowPulse:  {
-          '0%, 100%': { opacity: '0.7' },
-          '50%':      { opacity: '1' },
-        },
-        warmShift: {
-          '0%, 100%': { backgroundPosition: '0% 50%' },
-          '50%':      { backgroundPosition: '100% 50%' },
-        },
+        rise:     { from: { opacity: '0', transform: 'translateY(8px)' }, to: { opacity: '1', transform: 'translateY(0)' } },
+        fade:     { from: { opacity: '0' }, to: { opacity: '1' } },
+        drawLine: { from: { transform: 'scaleX(0)' }, to: { transform: 'scaleX(1)' } },
       },
     },
   },
