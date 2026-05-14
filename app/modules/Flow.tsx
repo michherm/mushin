@@ -56,7 +56,7 @@ export function Flow({
         <BreathOrb size={180} phase={orbPhase} color="breath" />
       </div>
       <div className="h-10" />
-      <span className="font-mono text-ink-dim text-[11px] tracking-[0.32em]">
+      <span className="font-ui text-ink-dim text-[14px] tracking-tag font-semibold">
         {String(seconds).padStart(2, '0')}
       </span>
       <div className="h-6" />

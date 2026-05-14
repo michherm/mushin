@@ -50,10 +50,9 @@ export function ActionStep({
           if (e.key === 'Enter' && step.trim()) setDone(true);
         }}
         placeholder="Aufstehen. Wasser holen. Anrufen."
-        className="w-full max-w-[520px] bg-transparent text-ink border-none outline-none text-center font-serif font-light py-3 px-1"
+        className="w-full max-w-[520px] bg-bg-raise text-ink border border-line focus:border-accent outline-none text-center font-display font-normal py-4 px-4 rounded-xl"
         style={{
           fontSize: 'clamp(20px, 3vw, 26px)',
-          borderBottom: '1px solid #3A2F22',
         }}
       />
       <div className="h-10" />

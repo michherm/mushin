@@ -36,7 +36,6 @@ export function Breath({
     return () => clearTimeout(t);
   }, [step, round, started]);
 
-  // Einleitungs-Bühne — kurz erklären
   if (!started) {
     return (
       <Stage glowColor="breath">
@@ -44,7 +43,7 @@ export function Breath({
         <div className="h-7" />
         <Display>Vier ein. Vier halten.<br /><span className="text-breath">Sechs aus.</span></Display>
         <div className="h-6" />
-        <p className="text-ink-dim text-[16px] leading-[1.6] max-w-[460px] mx-auto">
+        <p className="text-ink-dim text-[17px] leading-[1.6] max-w-[460px] mx-auto">
           Vier Runden. Du folgst dem Kreis.
           Atem dehnt das Zwerchfell — das Nervensystem hört.
         </p>
@@ -79,16 +78,14 @@ export function Breath({
       </div>
       <div className="h-20" />
 
-      {/* Fortschrittskette */}
       <div className="flex justify-center gap-2 mb-6">
         {Array.from({ length: ROUNDS }).map((_, idx) => (
           <div
             key={idx}
-            className="h-px rounded-full transition-all duration-500"
+            className="h-[3px] rounded-full transition-all duration-500"
             style={{
-              width: idx === round ? 24 : 12,
-              background: idx < round ? '#7DA89C' : idx === round ? '#7DA89C' : '#2A3A35',
-              opacity: idx <= round ? 1 : 0.4,
+              width: idx === round ? 28 : 14,
+              background: idx <= round ? '#5E8590' : '#D8CFC0',
             }}
           />
         ))}

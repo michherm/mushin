@@ -43,15 +43,14 @@ export function Emergency({
   const [i, setI] = useState(0);
 
   return (
-    <div className="fixed inset-0 bg-bg-ink z-50 flex flex-col items-center justify-center px-5 py-12 text-center overflow-y-auto">
-      {/* Warmer Glow auch hier — nicht kalt */}
+    <div className="fixed inset-0 bg-bg z-50 flex flex-col items-center justify-center px-5 py-12 text-center overflow-y-auto">
       <div
         aria-hidden
         className="warm-glow pointer-events-none"
         style={{
           top: '50%', left: '50%', transform: 'translate(-50%, -50%)',
           width: '80vw', height: '80vw', maxWidth: '600px', maxHeight: '600px',
-          background: 'radial-gradient(circle, rgba(196, 74, 46, 0.12) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(163, 84, 70, 0.12) 0%, transparent 70%)',
         }}
       />
 
@@ -60,8 +59,8 @@ export function Emergency({
         <div className="h-8" />
         <h1
           key={i}
-          className="font-serif font-light leading-none text-ink max-w-[720px] animate-rise"
-          style={{ fontSize: 'clamp(36px, 8vw, 72px)' }}
+          className="font-display font-normal leading-none text-ink max-w-[720px] animate-rise"
+          style={{ fontSize: 'clamp(36px, 8vw, 64px)' }}
         >
           {flow[i]}
         </h1>
@@ -76,7 +75,7 @@ export function Emergency({
           <Btn onClick={onComplete}>Zurück</Btn>
         )}
         <div className="h-3" />
-        <span className="font-mono text-ink-mute text-[10px] tracking-[0.3em]">
+        <span className="font-ui text-ink-mute text-[11px] font-semibold tracking-tag">
           {i + 1} / {flow.length}
         </span>
       </div>

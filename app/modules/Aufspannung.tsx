@@ -1,8 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, type ComponentType } from 'react';
 import { Stage, Tag, Display, Btn, Ghost, BoneCue } from '@/components/ui';
 import { BreathOrb } from '@/components/BreathOrb';
+import { PelvisLevator, CrownPoint, SpineDeep } from '@/components/Anatomy';
 import { useSoundscape } from '@/lib/useSoundscape';
 import type { Level } from '@/lib/library';
 
@@ -12,19 +13,20 @@ interface Station {
   hint: string;
   bone?: string;
   orbPhase: 'in' | 'hold' | 'out';
+  Anatomy?: ComponentType<{ size?: number; className?: string }>;
 }
 
 const STATIONS_CANTIENICA: Station[] = [
-  { tag: '01', cue: 'Sitzbeinhöcker spüren.',         hint: 'Auf den höchsten Punkten ausrichten. Schambein und Steißbein im Lot.', bone: 'Sitzbeinhöcker', orbPhase: 'in' },
-  { tag: '02', cue: 'Kronenpunkt zur Decke.',         hint: 'Vier Fingerbreit hinter dem höchsten Punkt. Wirbelsäule aufspannen.', bone: 'Kronenpunkt', orbPhase: 'hold' },
-  { tag: '03', cue: 'Diagonal beatmen.',              hint: 'Linker Sitzbeinhöcker einatmen. Rechte Schulter ausatmen.', bone: 'Diagonale', orbPhase: 'out' },
-  { tag: '04', cue: 'Gegengleich.',                   hint: 'Rechter Sitzbeinhöcker einatmen. Linke Schulter ausatmen.', bone: 'Diagonale', orbPhase: 'in' },
-  { tag: '05', cue: 'In die Aufspannung entspannen.', hint: 'Aktiv. Levator ani sanft. Zungenenden an den Gaumen. Da bist du.', bone: 'Aufspannung', orbPhase: 'out' },
+  { tag: '01', cue: 'Sitzbeinhöcker spüren.',         hint: 'Auf den höchsten Punkten ausrichten. Schambein und Steißbein im Lot.', bone: 'Sitzbeinhöcker', orbPhase: 'in', Anatomy: PelvisLevator },
+  { tag: '02', cue: 'Kronenpunkt zur Decke.',         hint: 'Vier Fingerbreit hinter dem höchsten Punkt. Wirbelsäule aufspannen.', bone: 'Kronenpunkt', orbPhase: 'hold', Anatomy: CrownPoint },
+  { tag: '03', cue: 'Diagonal beatmen.',              hint: 'Linker Sitzbeinhöcker einatmen. Rechte Schulter ausatmen.', bone: 'Diagonale', orbPhase: 'out', Anatomy: SpineDeep },
+  { tag: '04', cue: 'Gegengleich.',                   hint: 'Rechter Sitzbeinhöcker einatmen. Linke Schulter ausatmen.', bone: 'Diagonale', orbPhase: 'in', Anatomy: SpineDeep },
+  { tag: '05', cue: 'In die Aufspannung entspannen.', hint: 'Aktiv. Levator ani sanft. Zungenenden an den Gaumen. Da bist du.', bone: 'Aufspannung', orbPhase: 'out', Anatomy: PelvisLevator },
 ];
 
 const STATIONS_BEGINNER: Station[] = [
-  { tag: '01', cue: 'Sitz aufrichten.',         hint: 'Spür den Sitzknochen unter dir. Becken aufrecht.', orbPhase: 'in' },
-  { tag: '02', cue: 'Hinterkopf zur Decke.',    hint: 'Wie an einem Faden. Wirbelsäule wird lang.', orbPhase: 'hold' },
+  { tag: '01', cue: 'Sitz aufrichten.',         hint: 'Spür den Sitzknochen unter dir. Becken aufrecht.', orbPhase: 'in', Anatomy: PelvisLevator },
+  { tag: '02', cue: 'Hinterkopf zur Decke.',    hint: 'Wie an einem Faden. Wirbelsäule wird lang.', orbPhase: 'hold', Anatomy: CrownPoint },
   { tag: '03', cue: 'Atme tief.',               hint: 'Vier ein durch die Nase. Sechs aus durch den Mund.', orbPhase: 'out' },
   { tag: '04', cue: 'Schultern weich.',         hint: 'Lass sie hängen. Kiefer entspannen.', orbPhase: 'in' },
   { tag: '05', cue: 'Bleib einen Moment.',      hint: 'Spür den Raum, den du gerade aufgemacht hast.', orbPhase: 'out' },
@@ -60,7 +62,7 @@ export function Aufspannung({
         <div className="h-7" />
         <Display>Im Sitzen.<br /><span className="text-ink-dim">Überall machbar.</span></Display>
         <div className="h-6" />
-        <p className="text-ink-dim text-[16px] leading-[1.6] max-w-[460px] mx-auto">
+        <p className="text-ink-dim text-[17px] leading-[1.6] max-w-[460px] mx-auto">
           Fünf kurze Stationen. Du sitzt, atmest diagonal,
           richtest dich auf. <BoneCue>Knochen denken.</BoneCue>
         </p>
@@ -89,17 +91,18 @@ export function Aufspannung({
   }
 
   const s = stations[i];
+  const Anatomy = s.Anatomy;
 
   return (
     <Stage glowColor="accent">
       <Tag color="accent">Station {s.tag} · {stations.length}</Tag>
-      <div className="h-3" />
+      <div className="h-4" />
 
       {s.bone && (
-        <div className="flex items-center justify-center gap-2 mb-6 animate-fade">
-          <div className="w-1 h-1 rotate-45 bg-accent" />
+        <div className="inline-flex items-center gap-3 px-4 py-2 bg-bg-warm rounded-full mb-6 animate-fade">
+          <div className="w-1.5 h-1.5 rotate-45 bg-accent" />
           <BoneCue>{s.bone}</BoneCue>
-          <div className="w-1 h-1 rotate-45 bg-accent" />
+          <div className="w-1.5 h-1.5 rotate-45 bg-accent" />
         </div>
       )}
 
@@ -108,21 +111,27 @@ export function Aufspannung({
       <p className="text-ink-dim text-[17px] leading-[1.6] max-w-[480px] mx-auto animate-fade">
         {s.hint}
       </p>
-      <div className="h-10" />
-      <div className="flex justify-center">
-        <BreathOrb size={170} phase={s.orbPhase} color="accent" />
+      <div className="h-8" />
+
+      <div className="flex justify-center items-center gap-6 sm:gap-10 flex-wrap">
+        {Anatomy && (
+          <div className="animate-fade opacity-85">
+            <Anatomy size={120} />
+          </div>
+        )}
+        <BreathOrb size={140} phase={s.orbPhase} color="accent" />
       </div>
+
       <div className="h-12" />
 
       <div className="flex justify-center gap-1.5 mb-6">
         {stations.map((_, idx) => (
           <div
             key={idx}
-            className="h-px rounded-full transition-all duration-500"
+            className="h-[3px] rounded-full transition-all duration-500"
             style={{
-              width: idx === i ? 24 : 12,
-              background: idx < i ? '#D9BE85' : idx === i ? '#E8C470' : '#3A2F22',
-              opacity: idx <= i ? 1 : 0.4,
+              width: idx === i ? 28 : 14,
+              background: idx < i ? '#5E8590' : idx === i ? '#244D52' : '#D8CFC0',
             }}
           />
         ))}

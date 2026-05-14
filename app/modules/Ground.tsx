@@ -5,10 +5,10 @@ import { Stage, Tag, Display, Btn, Ghost } from '@/components/ui';
 import { useSoundscape } from '@/lib/useSoundscape';
 
 const STEPS = [
-  { n: 5, sense: 'siehst',   detail: 'Form. Farbe. Textur.' },
-  { n: 4, sense: 'fühlst',   detail: 'Stoff. Boden. Haut.' },
-  { n: 3, sense: 'hörst',    detail: 'Nah und fern.' },
-  { n: 2, sense: 'riechst',  detail: 'Auch leise Düfte.' },
+  { n: 5, sense: 'siehst',    detail: 'Form. Farbe. Textur.' },
+  { n: 4, sense: 'fühlst',    detail: 'Stoff. Boden. Haut.' },
+  { n: 3, sense: 'hörst',     detail: 'Nah und fern.' },
+  { n: 2, sense: 'riechst',   detail: 'Auch leise Düfte.' },
   { n: 1, sense: 'schmeckst', detail: 'Mund. Speichel. Atem.' },
 ];
 
@@ -42,7 +42,7 @@ export function Ground({
       <Tag color="accent">Erden · {s.n} · 5</Tag>
       <div className="h-8" />
       <Display>
-        <span className="text-glow">{s.n}</span> Dinge, die du {s.sense}.
+        <span className="text-accent">{s.n}</span> Dinge, die du {s.sense}.
       </Display>
       <div className="h-5" />
       <p className="text-ink-dim text-[17px]">{s.detail}</p>
@@ -52,11 +52,10 @@ export function Ground({
         {STEPS.map((_, idx) => (
           <div
             key={idx}
-            className="h-px rounded-full transition-all duration-500"
+            className="h-[3px] rounded-full transition-all duration-500"
             style={{
-              width: idx === i ? 24 : 12,
-              background: idx < i ? '#D9BE85' : idx === i ? '#E8C470' : '#3A2F22',
-              opacity: idx <= i ? 1 : 0.4,
+              width: idx === i ? 28 : 14,
+              background: idx < i ? '#5E8590' : idx === i ? '#244D52' : '#D8CFC0',
             }}
           />
         ))}

@@ -38,25 +38,24 @@ export function Patterns({ onExit }: { onExit: () => void }) {
       <div className="h-10" />
 
       {entries.length === 0 ? (
-        <p className="text-ink-mute italic font-serif">Noch keine Sessions.</p>
+        <p className="text-ink-mute italic font-display text-[18px]">Noch keine Sessions.</p>
       ) : (
-        <div className="border border-line text-left rounded-sm overflow-hidden">
+        <div className="border border-line text-left rounded-xl overflow-hidden bg-bg-raise shadow-sm">
           {entries.map(([key, count], idx) => {
             const ratio = count / Math.max(...entries.map(([, c]) => c));
             return (
               <div
                 key={key}
-                className={`flex justify-between items-center px-5 py-4 relative bg-bg ${
+                className={`flex justify-between items-center px-5 py-4 relative ${
                   idx < entries.length - 1 ? 'border-b border-line' : ''
                 }`}
               >
-                {/* Hintergrundbalken — visuelles Maß */}
                 <div
                   className="absolute left-0 top-0 bottom-0 bg-accent/10"
                   style={{ width: `${ratio * 100}%` }}
                 />
-                <span className="text-[17px] relative z-10">{LABELS[key] ?? key}</span>
-                <span className="font-mono text-accent text-[14px] tracking-[0.2em] relative z-10">
+                <span className="text-[17px] relative z-10 text-ink">{LABELS[key] ?? key}</span>
+                <span className="font-ui font-semibold text-accent text-[14px] tracking-tag relative z-10">
                   {String(count).padStart(2, '0')}
                 </span>
               </div>
@@ -66,7 +65,7 @@ export function Patterns({ onExit }: { onExit: () => void }) {
       )}
 
       {total > 0 && (
-        <p className="text-ink-mute text-[12px] mt-6 font-mono tracking-[0.2em]">
+        <p className="text-ink-mute text-[12px] mt-6 font-ui tracking-tag font-semibold">
           Gesamt: {total} Sessions
         </p>
       )}

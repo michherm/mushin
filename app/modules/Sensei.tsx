@@ -1,12 +1,5 @@
 'use client';
 
-/**
- * SENSEI — der KI-Coach.
- *
- * Bewusst kein Klangbett — Sensei ist Stille.
- * Sehr ruhige Bühne, wärmere Farben als vorher.
- */
-
 import { useState, useEffect, useRef, useCallback } from 'react';
 import { Stage, Tag, Display, Rule, Btn, Ghost, BoneCue } from '@/components/ui';
 import { useSensei, type SenseiResult } from '@/lib/useSensei';
@@ -28,7 +21,6 @@ const STATE_LABELS: Record<ZustandsKey, string> = {
   blocked: 'Blockiert',
 };
 
-/** Erkennt Cantienica-Knochen-Begriffe in der Antwort, um sie zu highlighten. */
 const BONE_PATTERNS = [
   /Levator ani/gi, /Sitzbeinhöcker/gi, /Kronenpunkt/gi, /Zwerchfell/gi,
   /Kreuzbein/gi, /Steißbein/gi, /Schambein/gi, /Hinterkopf/gi,
@@ -38,7 +30,6 @@ const BONE_PATTERNS = [
 
 function highlightBones(text: string): React.ReactNode {
   if (!text) return text;
-  // Sammle alle Treffer
   const matches: { idx: number; len: number; word: string }[] = [];
   BONE_PATTERNS.forEach(p => {
     p.lastIndex = 0;
@@ -50,11 +41,10 @@ function highlightBones(text: string): React.ReactNode {
   if (matches.length === 0) return text;
   matches.sort((a, b) => a.idx - b.idx);
 
-  // Baue Teile
   const parts: React.ReactNode[] = [];
   let cursor = 0;
   matches.forEach((m, i) => {
-    if (m.idx < cursor) return; // Überlappung ignorieren
+    if (m.idx < cursor) return;
     if (m.idx > cursor) parts.push(text.slice(cursor, m.idx));
     parts.push(<BoneCue key={i}>{m.word}</BoneCue>);
     cursor = m.idx + m.len;
@@ -72,7 +62,7 @@ export function Sensei({
   onModule: (m: string) => void;
   onExit: () => void;
 }) {
-  useSoundscape('silence'); // Sensei ist still
+  useSoundscape('silence');
 
   const [history, setHistory] = useState<string[]>([]);
   const [recentLines, setRecentLines] = useState<string[]>([]);
@@ -120,7 +110,7 @@ export function Sensei({
       <Stage>
         <Tag color="accent">Sensei</Tag>
         <div className="h-8" />
-        <div className="text-ink-dim italic font-serif text-[24px] animate-pulse">
+        <div className="text-ink-dim italic font-display text-[26px] animate-pulse">
           …
         </div>
       </Stage>
@@ -150,7 +140,7 @@ export function Sensei({
             }
           }}
           placeholder="…"
-          className="w-full min-h-[100px] bg-bg-warm/50 text-ink border border-line focus:border-accent outline-none px-5 py-4 font-serif text-[20px] font-light leading-[1.4] resize-none rounded-sm transition-colors"
+          className="w-full min-h-[110px] bg-bg-raise text-ink border border-line focus:border-accent outline-none px-5 py-4 font-display text-[20px] font-normal leading-[1.4] resize-none rounded-xl transition-colors shadow-sm"
         />
         <div className="h-6" />
         <Btn onClick={send} disabled={!input.trim()}>Senden</Btn>
@@ -171,7 +161,7 @@ export function Sensei({
         <>
           <div className="h-5" />
           <p className="text-ink-dim leading-[1.6] max-w-[520px] mx-auto"
-             style={{ fontSize: 'clamp(18px, 2.5vw, 22px)' }}>
+             style={{ fontSize: 'clamp(17px, 2.5vw, 20px)' }}>
             {highlightBones(intervention.line2)}
           </p>
         </>
@@ -179,8 +169,8 @@ export function Sensei({
       {intervention.line3 && (
         <>
           <div className="h-3" />
-          <p className="leading-[1.6] max-w-[520px] mx-auto"
-             style={{ fontSize: 'clamp(16px, 2vw, 19px)', color: '#7A6E58' }}>
+          <p className="leading-[1.6] max-w-[520px] mx-auto italic text-ink-mute"
+             style={{ fontSize: 'clamp(15px, 2vw, 17px)' }}>
             {highlightBones(intervention.line3)}
           </p>
         </>
