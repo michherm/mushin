@@ -1,15 +1,3 @@
-/**
- * BreathOrb — Version 2: lebendiger, wärmer, mit Tiefe.
- *
- * Statt einem Ring jetzt:
- *   - äußerer fester Ring (Struktur)
- *   - mittlerer atmender Ring (Bewegung)
- *   - innerer Glow-Schein (warmes Herz)
- *   - zentraler Diamant (Kronenpunkt)
- *
- * Farbe wechselt sanft je nach Phase.
- */
-
 'use client';
 
 export type BreathPhase = 'in' | 'hold' | 'out' | 'idle';
@@ -32,15 +20,15 @@ export function BreathOrb({
     idle: 'orb-idle',
   }[phase];
 
+  // Morgenwasser-Töne: Petrol, Morgenblau, Terrakotta
   const tones = {
-    accent: { ring: '#3A2F22', ringHi: '#5A4F3E', dot: '#D9BE85', glow: 'rgba(217, 190, 133, 0.18)' },
-    breath: { ring: '#2A3A35', ringHi: '#4A5F58', dot: '#7DA89C', glow: 'rgba(125, 168, 156, 0.18)' },
-    ember:  { ring: '#3A2218', ringHi: '#5A2F22', dot: '#C44A2E', glow: 'rgba(196, 74, 46, 0.20)' },
+    accent: { ring: '#D8CFC0', ringHi: '#B4A88E', dot: '#244D52', glow: 'rgba(36, 77, 82, 0.18)' },
+    breath: { ring: '#D8CFC0', ringHi: '#9AAFB8', dot: '#5E8590', glow: 'rgba(94, 133, 144, 0.18)' },
+    ember:  { ring: '#E8D5CE', ringHi: '#C99A8C', dot: '#A35446', glow: 'rgba(163, 84, 70, 0.20)' },
   }[color];
 
   return (
     <div className="relative inline-block" style={{ width: size, height: size }}>
-      {/* Warmer Schein im Hintergrund */}
       <div
         aria-hidden
         className="absolute inset-0 rounded-full"
@@ -52,21 +40,18 @@ export function BreathOrb({
         }}
       />
 
-      {/* Äußerer Ring — Struktur */}
       <div
         className="absolute inset-0 rounded-full"
-        style={{ border: `1px solid ${tones.ring}` }}
+        style={{ border: `1.5px solid ${tones.ring}` }}
         aria-hidden
       />
 
-      {/* Mittlerer Ring — atmet */}
       <div
         className={`absolute rounded-full ${phaseClass}`}
-        style={{ inset: 22, border: `1px solid ${tones.ringHi}` }}
+        style={{ inset: 22, border: `1.5px solid ${tones.ringHi}` }}
         aria-hidden
       />
 
-      {/* Innerer Schein — Herz */}
       <div
         className="absolute rounded-full"
         style={{
@@ -78,17 +63,15 @@ export function BreathOrb({
         aria-hidden
       />
 
-      {/* Zentraler Punkt — Kronenpunkt */}
       <div
-        className="absolute top-1/2 left-1/2 w-1 h-1 -ml-0.5 -mt-0.5 rotate-45"
-        style={{ background: tones.dot, boxShadow: `0 0 8px ${tones.dot}` }}
+        className="absolute top-1/2 left-1/2 w-1.5 h-1.5 -ml-[3px] -mt-[3px] rotate-45"
+        style={{ background: tones.dot, boxShadow: `0 0 12px ${tones.dot}` }}
         aria-hidden
       />
 
-      {/* Phasen-Label */}
       {label && (
-        <div className="absolute -bottom-7 left-0 right-0 text-center font-mono text-[10px] tracking-[0.3em] uppercase animate-fade"
-             style={{ color: '#9A8E78' }}>
+        <div className="absolute -bottom-7 left-0 right-0 text-center font-ui text-[11px] font-semibold tracking-[0.22em] uppercase animate-fade"
+             style={{ color: '#7C8A91' }}>
           {label}
         </div>
       )}

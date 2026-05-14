@@ -10,71 +10,20 @@ interface Module {
   name: string;
   sub: string;
   duration: string;
-  what: string;       // konkret: was passiert hier (eine Zeile)
+  what: string;
   accent?: boolean;
 }
 
 const MODULES: Module[] = [
-  {
-    id: 'stand',
-    glyph: '一',
-    name: 'Stand',
-    sub: 'Aufrichtung von Ferse bis Krone.',
-    duration: '3 min',
-    what: 'Neun Knochen-Punkte, einer nach dem anderen.',
-  },
-  {
-    id: 'aufspannung',
-    glyph: '二',
-    name: 'Aufspannung',
-    sub: 'Im Sitzen. Überall machbar.',
-    duration: '90 s',
-    what: 'Sitzbeinhöcker, Kronenpunkt, diagonal beatmen.',
-  },
-  {
-    id: 'breath',
-    glyph: '三',
-    name: 'Atem',
-    sub: 'Vier · Vier · Sechs.',
-    duration: '4 Runden',
-    what: 'Zwerchfell senken. Nervensystem beruhigen.',
-  },
-  {
-    id: 'sensei',
-    glyph: '四',
-    name: 'Sensei',
-    sub: 'Adaptiver Coach.',
-    duration: 'offen',
-    what: 'Tipp einen Satz. Drei Zeilen zurück.',
-    accent: true,
-  },
-  {
-    id: 'flow',
-    glyph: '五',
-    name: 'Flow',
-    sub: 'Beobachten. Nicht festhalten.',
-    duration: '1 min',
-    what: 'Gedanken ziehen durch wie Wasser.',
-  },
-  {
-    id: 'ground',
-    glyph: '六',
-    name: 'Erden',
-    sub: 'Bei Dissoziation. Fünf Sinne.',
-    duration: '2 min',
-    what: 'Was siehst du? Fühlst du? Hörst du?',
-  },
-  {
-    id: 'action',
-    glyph: '七',
-    name: 'Handlung',
-    sub: 'Ein konkreter Schritt.',
-    duration: '1 min',
-    what: 'Eine Bewegung. Klein. Real. Jetzt.',
-  },
+  { id: 'stand',       glyph: '一', name: 'Stand',       sub: 'Aufrichtung von Ferse bis Krone.', duration: '3 min',    what: 'Neun Knochen-Punkte, einer nach dem anderen.' },
+  { id: 'aufspannung', glyph: '二', name: 'Aufspannung', sub: 'Im Sitzen. Überall machbar.',      duration: '90 s',     what: 'Sitzbeinhöcker, Kronenpunkt, diagonal beatmen.' },
+  { id: 'breath',      glyph: '三', name: 'Atem',        sub: 'Vier · Vier · Sechs.',             duration: '4 Runden', what: 'Zwerchfell senken. Nervensystem beruhigen.' },
+  { id: 'sensei',      glyph: '四', name: 'Sensei',      sub: 'Adaptiver Coach.',                 duration: 'offen',    what: 'Tipp einen Satz. Drei Zeilen zurück.', accent: true },
+  { id: 'flow',        glyph: '五', name: 'Flow',        sub: 'Beobachten. Nicht festhalten.',    duration: '1 min',    what: 'Gedanken ziehen durch wie Wasser.' },
+  { id: 'ground',      glyph: '六', name: 'Erden',       sub: 'Bei Dissoziation. Fünf Sinne.',    duration: '2 min',    what: 'Was siehst du? Fühlst du? Hörst du?' },
+  { id: 'action',      glyph: '七', name: 'Handlung',    sub: 'Ein konkreter Schritt.',           duration: '1 min',    what: 'Eine Bewegung. Klein. Real. Jetzt.' },
 ];
 
-/* Wechselnde Tagesgrüße — abhängig von Uhrzeit */
 function greeting(): string {
   if (typeof window === 'undefined') return 'Stehe zuerst.';
   const h = new Date().getHours();
@@ -99,48 +48,47 @@ export function Home({
 
   return (
     <div className="min-h-screen px-4 sm:px-6 pt-16 pb-24 max-w-[980px] mx-auto relative">
-      {/* Warmer Glow im Hintergrund */}
       <div
         aria-hidden
         className="warm-glow pointer-events-none"
         style={{
           top: '5%', left: '10%',
           width: '40vw', height: '40vw', maxWidth: '400px', maxHeight: '400px',
-          background: 'radial-gradient(circle, rgba(217, 190, 133, 0.15) 0%, transparent 70%)',
+          background: 'radial-gradient(circle, rgba(94, 133, 144, 0.12) 0%, transparent 70%)',
         }}
       />
 
       <div className="animate-rise relative z-10">
-        {/* Kopfzeile — Mushin-Tag, Level-Knopf wird wegen Sound-Toggle nach unten verschoben */}
+        {/* Kopfzeile */}
         <div className="flex items-center mb-8">
           <Tag color="accent">無心 · Mushin</Tag>
         </div>
 
-        {/* Tageszeit-Gruß */}
-        <Tag color="dim">{hour}</Tag>
-        <div className="h-3" />
+        {/* Tageszeit */}
+        <Tag color="mute">{hour}</Tag>
+        <div className="h-4" />
 
         {/* Hauptbotschaft */}
-        <Display className="!text-[clamp(44px,9vw,80px)]">
+        <Display className="!text-[clamp(40px,8vw,64px)]">
           Stehe zuerst.<br />
           <span className="text-ink-dim">Denken später.</span>
         </Display>
         <div className="h-6" />
 
-        {/* Cantienica-Anker — Knochen denken */}
-        <div className="inline-flex items-center gap-3 px-4 py-2 rounded-full bg-bg-warm/50 border border-line-hi/50">
-          <div className="w-1 h-1 rotate-45 bg-accent" />
-          <span className="font-serif italic text-accent text-[16px]">
+        {/* Knochen-Banner — Isabelles Mantra */}
+        <div className="inline-flex items-center gap-3 px-5 py-3 rounded-full bg-bg-raise border border-line shadow-sm">
+          <div className="w-1.5 h-1.5 rotate-45 bg-accent" />
+          <span className="font-display italic text-accent text-[17px] font-medium">
             Knochen denken.
           </span>
-          <span className="font-mono text-ink-mute text-[9px] tracking-[0.3em] uppercase">
+          <span className="font-ui text-ink-mute text-[10px] tracking-tag uppercase font-semibold">
             Isabelle
           </span>
         </div>
 
         <div className="h-6" />
         <p
-          className="text-ink-dim font-light leading-[1.6] max-w-[520px]"
+          className="text-ink-dim font-normal leading-[1.65] max-w-[540px]"
           style={{ fontSize: 'clamp(16px, 2.2vw, 18px)' }}
         >
           Kein Journal. Kein Coach. Ein Dojo.
@@ -153,46 +101,44 @@ export function Home({
       <Rule width={80} />
       <div className="h-10" />
 
-      {/* Hilfeleitfaden — was tut man wann? */}
-      <div className="mb-8 px-4 py-3 rounded-lg bg-bg-warm/30 border border-line/50 max-w-[680px]">
-        <p className="text-ink-dim text-[14px] leading-[1.6]" style={{ fontStyle: 'italic' }}>
-          Beginne mit <span className="text-accent">Stand</span> oder <span className="text-accent">Aufspannung</span>.
-          Bei innerem Lärm zu <span className="text-accent">Sensei</span>.
-          Wenn nichts geht — der rote Knopf unten.
+      {/* Hilfeleitfaden */}
+      <div className="mb-8 px-5 py-4 rounded-xl bg-bg-raise border border-line max-w-[680px] shadow-sm">
+        <p className="text-ink-dim text-[15px] leading-[1.6]">
+          Beginne mit <span className="text-accent font-medium">Stand</span> oder <span className="text-accent font-medium">Aufspannung</span>.
+          Bei innerem Lärm zu <span className="text-accent font-medium">Sensei</span>.
+          Wenn nichts geht — der Knopf unten.
         </p>
       </div>
 
-      {/* Module — Mobile 2 Spalten, ab ~700px drei Spalten */}
-      <div
-        className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-px bg-line border border-line rounded-sm overflow-hidden relative z-10"
-      >
+      {/* Module — abgerundete Karten mit Schatten */}
+      <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4 relative z-10">
         {MODULES.map((m, idx) => (
           <button
             key={m.id}
             onClick={() => go(m.id)}
-            className="bg-bg text-ink text-left p-4 sm:p-6 min-h-[170px] sm:min-h-[210px] flex flex-col justify-between transition-all duration-500 hover:bg-bg-warm active:bg-bg-warm cursor-pointer border-0 group"
+            className="bg-bg-raise text-ink text-left p-5 sm:p-6 min-h-[200px] sm:min-h-[220px] flex flex-col justify-between border border-line rounded-2xl shadow-sm cursor-pointer transition-all duration-300 hover:bg-bg-warm hover:border-line-hi hover:-translate-y-0.5 hover:shadow-md group"
           >
             <div className="flex justify-between items-start gap-2">
               <div
-                className={`font-serif font-light text-[36px] sm:text-[44px] leading-none transition-all duration-500 ${
-                  m.accent ? 'text-accent group-hover:text-glow' : 'text-accent opacity-65 group-hover:opacity-100'
+                className={`font-display font-normal text-[40px] sm:text-[48px] leading-none transition-all duration-500 ${
+                  m.accent ? 'text-accent' : 'text-accent opacity-80 group-hover:opacity-100'
                 }`}
               >
                 {m.glyph}
               </div>
-              <span className="font-mono text-[9px] tracking-[0.2em] text-ink-mute uppercase shrink-0">
+              <span className="font-ui text-[10px] sm:text-[11px] tracking-tag font-semibold text-ink-mute uppercase shrink-0 bg-bg-warm px-2.5 py-1 rounded-full">
                 {m.duration}
               </span>
             </div>
 
             <div>
-              <span className="font-mono text-[9px] tracking-[0.3em] text-ink-mute uppercase">
+              <span className="font-ui text-[10px] sm:text-[11px] tracking-tag font-semibold text-ink-mute uppercase">
                 0{idx + 1}
               </span>
-              <div className="h-1.5" />
-              <div className="text-[18px] sm:text-[22px] font-light text-ink">{m.name}</div>
-              <div className="text-ink-dim text-[12px] sm:text-[13px] mt-0.5">{m.sub}</div>
-              <div className="text-ink-mute text-[11px] sm:text-[12px] mt-2 italic font-serif leading-[1.4] hidden sm:block">
+              <div className="h-1" />
+              <div className="text-[20px] sm:text-[24px] font-display font-normal text-ink leading-tight">{m.name}</div>
+              <div className="text-ink-dim text-[14px] sm:text-[15px] mt-1.5 leading-snug">{m.sub}</div>
+              <div className="text-ink-mute text-[12px] sm:text-[13px] mt-2.5 leading-relaxed hidden sm:block">
                 {m.what}
               </div>
             </div>
@@ -202,12 +148,12 @@ export function Home({
 
       <div className="h-8" />
 
-      {/* Emergency-Knopf — warm-rot statt hart-rot */}
+      {/* Emergency-Knopf */}
       <button
         onClick={() => go('emergency')}
-        className="w-full bg-bg-ink border border-ember/70 text-ember p-5 font-mono text-[11px] tracking-[0.32em] uppercase min-h-[56px] hover:bg-ember/10 hover:border-ember transition-all duration-300 rounded-sm relative z-10"
+        className="w-full bg-bg-raise border-[1.5px] border-ember text-ember p-5 sm:p-6 font-ui text-[12px] sm:text-[13px] font-semibold tracking-tag uppercase min-h-[60px] hover:bg-ember/8 hover:shadow-md transition-all duration-300 rounded-2xl shadow-sm relative z-10"
       >
-        <span className="opacity-90">Ich hänge fest</span>
+        Ich hänge fest
       </button>
 
       <div className="h-12" />
@@ -216,13 +162,13 @@ export function Home({
       <div className="flex justify-between items-center relative z-10 gap-3">
         <button
           onClick={() => go('patterns')}
-          className="bg-transparent border-0 text-ink-mute font-mono text-[10px] tracking-[0.3em] uppercase cursor-pointer p-3 min-h-[40px] hover:text-accent transition-colors"
+          className="bg-transparent border-0 text-ink-mute font-ui text-[11px] tracking-tag font-semibold uppercase cursor-pointer px-3 py-3 min-h-[44px] hover:text-accent transition-colors"
         >
           Muster →
         </button>
         <button
           onClick={() => setLevel(level === 'beginner' ? 'cantienica' : 'beginner')}
-          className="bg-transparent border border-line text-ink-dim font-mono text-[10px] tracking-[0.24em] uppercase px-3 py-2 min-h-[40px] hover:border-accent hover:text-accent transition-colors rounded-sm"
+          className="bg-bg-raise border border-line text-ink-dim font-ui text-[11px] tracking-tag font-semibold uppercase px-4 py-2.5 min-h-[44px] hover:border-accent hover:text-accent transition-colors rounded-full shadow-sm"
         >
           {level === 'cantienica' ? 'Cantienica' : 'Basis'}
         </button>
