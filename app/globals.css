@@ -1,45 +1,42 @@
-@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,300;0,400;0,500;1,300&family=JetBrains+Mono:wght@300;400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cormorant:ital,wght@0,400;0,500;1,400&family=Inter:wght@400;500;600&display=swap');
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* ─── Font-Variablen ──────────────────────────────────────────────────── */
 :root {
-  --font-cormorant: 'Cormorant', Georgia, serif;
-  --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+  --font-display: 'Cormorant', Georgia, serif;
+  --font-ui: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-/* ─── Basis-Reset ──────────────────────────────────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; }
 
 html, body {
   margin: 0;
   padding: 0;
-  color: #F0E8D9;
+  color: #1F2A30;
   -webkit-font-smoothing: antialiased;
   text-rendering: geometricPrecision;
-  font-family: var(--font-cormorant);
-  font-weight: 300;
+  font-family: var(--font-ui);
+  font-weight: 400;
+  line-height: 1.6;
 }
 
 html {
-  /* Verhindert horizontales Scrollen, aber erlaubt vertikales */
   overflow-x: hidden;
 }
 
 body {
   min-height: 100vh;
-  min-height: 100dvh; /* Dynamic viewport — funktioniert auf modernen Mobile-Browsern */
-  /* iOS Safe Area nur als Top/Bottom-Indikator, NICHT als Padding auf body */
+  min-height: 100dvh;
 }
 
-/* ─── Wärmer, lebendiger Hintergrund ──────────────────────────────────── */
+/* Morgenwasser-Hintergrund: warmes Off-White mit sanften Petrol/Morgenblau-Schimmern */
 body {
   background:
-    radial-gradient(ellipse at 20% 0%, rgba(217, 190, 133, 0.06) 0%, transparent 50%),
-    radial-gradient(ellipse at 80% 100%, rgba(125, 168, 156, 0.04) 0%, transparent 50%),
-    linear-gradient(180deg, #0F0D0B 0%, #110E0A 50%, #0F0D0B 100%);
+    radial-gradient(ellipse at 20% 0%, rgba(94, 133, 144, 0.08) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 100%, rgba(36, 77, 82, 0.05) 0%, transparent 50%),
+    linear-gradient(180deg, #F7F5F2 0%, #FDFBF8 50%, #F7F5F2 100%);
   background-attachment: fixed;
   background-size: 200% 200%;
   animation: warmDrift 30s ease-in-out infinite;
@@ -51,7 +48,6 @@ body {
   50%      { background-position: 5% 5%, 95% 95%, 100% 50%; }
 }
 
-/* ─── Touch-Verhalten ─────────────────────────────────────────────────── */
 button, [role="button"] {
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
@@ -67,35 +63,35 @@ button:focus-visible,
 [tabindex]:focus-visible,
 input:focus-visible,
 textarea:focus-visible {
-  outline: 1px solid #D9BE85;
+  outline: 1.5px solid #244D52;
   outline-offset: 4px;
 }
 
-::-webkit-scrollbar { width: 4px; height: 4px; }
-::-webkit-scrollbar-thumb { background: #2A2218; }
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-thumb { background: #D8CFC0; border-radius: 3px; }
 ::-webkit-scrollbar-track { background: transparent; }
 
-/* ─── Atmender Orb-Übergang ──────────────────────────────────────────── */
+/* Atmender Orb-Übergang */
 .orb-inhale  { transform: scale(1.14); transition: transform 4000ms cubic-bezier(.4,.1,.4,1); }
 .orb-hold    { transform: scale(1.14); transition: transform 4000ms cubic-bezier(.4,.1,.4,1); }
 .orb-exhale  { transform: scale(0.88); transition: transform 6000ms cubic-bezier(.4,.1,.4,1); }
 .orb-idle    { transform: scale(1.00); transition: transform 1600ms ease; }
 
-/* ─── Sanftes Hintergrund-Glühen (Komponente) ────────────────────────── */
+/* Sanftes Hintergrund-Glühen */
 .warm-glow {
   position: absolute;
   pointer-events: none;
   filter: blur(80px);
-  opacity: 0.3;
+  opacity: 0.4;
   animation: glowPulse 8s ease-in-out infinite;
 }
 
 @keyframes glowPulse {
-  0%, 100% { opacity: 0.2; transform: scale(1); }
-  50%      { opacity: 0.4; transform: scale(1.1); }
+  0%, 100% { opacity: 0.3; transform: scale(1); }
+  50%      { opacity: 0.5; transform: scale(1.1); }
 }
 
-/* ─── Knochen-Indikator (für "Knochen denken") ───────────────────────── */
+/* Knochen-Indikator */
 .bone-line {
   position: relative;
   display: inline-block;
@@ -105,13 +101,18 @@ textarea:focus-visible {
   position: absolute;
   left: 0; right: 0; bottom: -3px;
   height: 1px;
-  background: linear-gradient(90deg, transparent, #D9BE85, transparent);
-  opacity: 0.6;
+  background: linear-gradient(90deg, transparent, #244D52, transparent);
+  opacity: 0.7;
   animation: boneShimmer 3s ease-in-out infinite;
 }
 @keyframes boneShimmer {
-  0%, 100% { opacity: 0.3; }
-  50%      { opacity: 0.8; }
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 0.9; }
+}
+
+/* Globale Anwendung der Display-Schrift */
+.font-display {
+  font-family: var(--font-display);
 }
 
 @media print {
